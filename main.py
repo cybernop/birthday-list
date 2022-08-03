@@ -3,8 +3,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
-
-EXCEL_FILE = "/mnt/c/Users/Alexander Schulze/Charité - Universitätsmedizin Berlin/Core Unit eHealth & Interoperability - Documents/General/Geburtstage.xlsx"
+import yaml
 
 COLUMN_BIRTHDAY = "Geburtstag"
 COLUMN_NAME = "Name"
@@ -14,9 +13,13 @@ COLUMN_AGE = "Age"
 DATEFORMAT_ALTERNATIVE = "%d.%m."
 OUTPUT_FORMAT = "{date}\t{name}"
 
+CONFIG_EXCEL_FILE = "excel_file"
+
 
 def main():
-    df = _read_file(EXCEL_FILE)
+    config = yaml.safe_load(Path("config.yml").read_text())
+
+    df = _read_file(config[CONFIG_EXCEL_FILE])
     df = _preprocess_dates(df)
     birthdays = _get_this_weeks_birthdays(df)
     _print_birthdays(birthdays)
