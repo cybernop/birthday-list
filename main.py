@@ -59,7 +59,7 @@ def _preprocess_dates(df: pd.DataFrame) -> pd.DataFrame:
 def _get_this_weeks_birthdays(df: pd.DataFrame) -> pd.DataFrame:
     now = datetime.now()
     start = now - timedelta(days=now.weekday())
-    end = start + timedelta(days=13)
+    end = start + timedelta(days=6)
 
     birthdays = df[df[COLUMN_THIS_YEAR] >= start]
     birthdays = birthdays[birthdays[COLUMN_THIS_YEAR] <= end]
